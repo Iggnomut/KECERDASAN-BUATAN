@@ -1,0 +1,35 @@
+def dfs(graph, start, target, visited=[], path=[]):
+    path.append(start)
+    # print(stack) 
+    if start == target:
+        return path
+
+    if not start in visited:
+        visited.append(start)
+        for node in graph[start]:
+            srch = dfs(graph, node, target, visited, path)
+            if not srch is None:
+                return srch
+    path.pop()
+            
+            
+graph = {
+ '1' : ['2','3','4'],
+ '2' : ['5','6'],
+ '3' : [],
+ '4' : ['7','8'],
+ '5' : ['9','10'],
+ '6' : [],
+ '7' : ['11','12'],
+ '8' : [],
+ '9' : [],
+ '10' : [],
+ '11' : [],
+ '12' : []
+
+}
+
+StartNode = '1' 
+GoalNode = '12' 
+d = dfs(graph, StartNode, GoalNode)
+print("Path/jalur:", d)
