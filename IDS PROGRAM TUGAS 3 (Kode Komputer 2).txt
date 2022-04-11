@@ -1,0 +1,51 @@
+def dfs(graph, start, target, depth, visited=[], path=[], currDepth=0):
+    path.append(start)
+    
+    if start == target:
+        return path
+
+    if currDepth >= depth:
+        path.pop()
+        return None
+
+    
+    if not start in visited:
+        visited.append(start)
+        for node in graph[start]:
+            srch = dfs(graph, node, target, depth, visited, path, currDepth+1)
+            if not srch is None:
+                return srch
+
+    path.pop()
+
+
+def ids(graph, start, target, visited=[], path=[]):
+    depth = 1
+    srch = dfs(graph, start, target, depth, visited, path)
+    while srch is None:
+        visited = []
+        path = []
+        depth += 1
+        srch = dfs(graph, start, target, depth, visited, path)
+    return srch
+
+
+graph = {
+ '1' : ['2','3','4'],
+ '2' : ['5','6'],
+ '3' : [],
+ '4' : ['7','8'],
+ '5' : ['9','10'],
+ '6' : [],
+ '7' : ['11','12'],
+ '8' : [],
+ '9' : [],
+ '10' : [],
+ '11' : [],
+ '12' : []
+}
+
+StartNode = '1' 
+GoalNode = '12' 
+d = ids(graph, StartNode, GoalNode)
+print("Path/jalur:", d)
